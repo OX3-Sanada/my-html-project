@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANIMAL PHARMACY - みんなの、どうぶつ薬局。</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #E8936A;
+      --primary-light: #F5B99A;
+      --primary-dark: #D47850;
+      --cream: #FDF8F3;
+      --cream-dark: #F5EDE5;
+      --text: #3D3028;
+      --text-light: #7A6B5E;
+      --white: #FFFFFF;
+      --gradient-hero: linear-gradient(135deg, #FDF5F0 0%, #FCE8DC 50%, #E8EFE6 100%);
+      --gradient-section: linear-gradient(180deg, #FFFFFF 0%, #FDF8F3 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      line-height: 1.8;
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    .outfit {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 4%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease;
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 40px rgba(61, 48, 40, 0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      height: 44px;
+      width: auto;
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 2rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(232, 147, 106, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--text-light);
+    }
+
+    .btn-outline:hover {
+      background: var(--text);
+      color: var(--white);
+    }
+
+    /* Hero Section with Video */
+    .hero {
+      min-height: 100vh;
+      background: var(--gradient-hero);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 7rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(232, 147, 106, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(200, 220, 200, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: rgba(232, 147, 106, 0.15);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .hero-tagline {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      color: var(--primary);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.15em;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-video-wrapper {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      animation: fadeInUp 0.8s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    .hero-video {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: rgba(61, 48, 40, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(61, 48, 40, 0.15);
+    }
+
+    .hero-video iframe,
+    .hero-video video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(232, 147, 106, 0.15) 0%, rgba(61, 48, 40, 0.6) 100%);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .video-placeholder:hover {
+      background: linear-gradient(135deg, rgba(232, 147, 106, 0.25) 0%, rgba(61, 48, 40, 0.5) 100%);
+    }
+
+    .play-button {
+      width: 70px;
+      height: 70px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 40px rgba(232, 147, 106, 0.4);
+    }
+
+    .video-placeholder:hover .play-button {
+      transform: scale(1.1);
+      box-shadow: 0 15px 50px rgba(232, 147, 106, 0.5);
+    }
+
+    .play-button svg {
+      width: 26px;
+      height: 26px;
+      fill: var(--white);
+      margin-left: 4px;
+    }
+
+    .video-placeholder p {
+      color: var(--white);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-light);
+      font-weight: 300;
+      max-width: 550px;
+      margin: 0 auto 2.5rem;
+      line-height: 2;
+      animation: fadeInUp 0.8s ease 0.6s forwards;
+      opacity: 0;
+    }
+
+    .hero-cta {
+      animation: fadeInUp 0.8s ease 0.8s forwards;
+      opacity: 0;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator span {
+      width: 1px;
+      height: 30px;
+      background: linear-gradient(to bottom, var(--primary), transparent);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Section Common */
+    section {
+      padding: 8rem 5%;
+    }
+
+    .section-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 700px;
+      line-height: 2;
+    }
+
+    /* Partners Section - Featured */
+    .partners-featured {
+      background: var(--white);
+      text-align: center;
+      padding: 6rem 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .partners-featured::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 10% 50%, rgba(232, 147, 106, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 90% 50%, rgba(232, 147, 106, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .partners-featured-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .partners-stats {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-number span {
+      font-size: 0.5em;
+      font-weight: 400;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+    }
+
+    .partners-featured-header {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+
+    .partners-featured-header .section-subtitle {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .partners-logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+    }
+
+    .partner-logo-card {
+      height: 90px;
+      background: var(--cream);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .partner-logo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(61, 48, 40, 0.1);
+      border-color: var(--primary-light);
+    }
+
+    .partner-logo-card img {
+      max-height: 50px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .partner-logo-card span {
+      color: var(--text-light);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    .partners-expanding {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 100px;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .partners-expanding svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    /* Concept Section */
+    .concept {
+      background: var(--gradient-section);
+    }
+
+    .concept-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .concept-image {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .concept-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 30% 70%, rgba(232, 147, 106, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(200, 220, 200, 0.2) 0%, transparent 50%);
+    }
+
+    .concept-illustration {
+      width: 70%;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .concept-text h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .concept-text h2 span {
+      color: var(--primary);
+    }
+
+    .concept-text p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 2;
+    }
+
+    /* Features Section */
+    .features {
+      background: var(--white);
+    }
+
+    .features-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 5rem;
+    }
+
+    .features-expanding-banner {
+      max-width: 1200px;
+      margin: 4rem auto 0;
+      padding: 2rem 3rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      box-shadow: 0 10px 40px rgba(232, 147, 106, 0.3);
+    }
+
+    .features-expanding-banner .expanding-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .features-expanding-banner .expanding-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--white);
+    }
+
+    .features-expanding-banner p {
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .features-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: var(--cream);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(61, 48, 40, 0.1);
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      opacity: 0.5;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .feature-desc {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.9;
+    }
+
+    /* Benefits Section */
+    .benefits {
+      background: var(--text);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefits::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(232, 147, 106, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(232, 147, 106, 0.1) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .benefits-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .benefits-header .section-label {
+      color: var(--primary-light);
+    }
+
+    .benefits-header .section-title {
+      color: var(--white);
+    }
+
+    .benefits-header .section-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .benefits-list {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .benefit-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .benefit-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 10px 30px rgba(232, 147, 106, 0.3);
+    }
+
+    .benefit-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--white);
+    }
+
+    .benefit-content h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      color: var(--white);
+    }
+
+    .benefit-content p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      background: var(--gradient-section);
+    }
+
+    .how-it-works-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 5rem;
+    }
+
+    .steps {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 60px;
+      bottom: 60px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+    }
+
+    .step {
+      display: flex;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: var(--white);
+      border: 3px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-content {
+      flex: 1;
+      padding-top: 0.8rem;
+    }
+
+    .step-content h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      color: var(--text-light);
+      line-height: 1.9;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .cta-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 3rem;
+      line-height: 1.9;
+    }
+
+    .cta .btn-primary {
+      background: var(--white);
+      color: var(--primary);
+      padding: 1.2rem 3rem;
+      font-size: 1rem;
+    }
+
+    .cta .btn-primary:hover {
+      background: var(--cream);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text);
+      color: var(--white);
+      padding: 4rem 5% 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .footer-logo {
+      height: 40px;
+      width: auto;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+
+    .footer-brand p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.9;
+    }
+
+    .footer-links h4 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-bottom: 0.8rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-light);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom nav a {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-left: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom nav a:hover {
+      color: var(--white);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .concept-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .steps::before {
+        display: none;
+      }
+
+      .step {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .partners-stats {
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 1rem 4%;
+      }
+
+      .nav-cta .btn-outline {
+        display: none;
+      }
+
+      section {
+        padding: 5rem 5%;
+      }
+
+      .benefit-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .benefit-icon {
+        margin: 0 auto;
+      }
+
+      .benefit-content {
+        text-align: center;
+      }
+
+      .partners-featured {
+        padding: 4rem 5%;
+      }
+
+      .partners-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .hero {
+        padding: 6rem 5% 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <a href="#" class="logo">
+      <img src="logo.png" alt="ANIMAL PHARMACY" class="logo-icon">
+    </a>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-outline">お問い合わせ</a>
+      <a href="#contact" class="btn btn-primary">資料請求（無料）</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Embedded Video -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">地域獣医療に、新しいつながりを</span>
+      <p class="hero-tagline">みんなの、どうぶつ薬局。</p>
+      
+      <div class="hero-video-wrapper">
+        <div class="hero-video">
+          <!-- YouTube埋め込み例：以下のコメントを解除してsrcにURLを入れてください -->
+          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="ANIMAL PHARMACY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+          
+          <!-- プレースホルダー（動画URLが決まったら上のiframeに置き換え） -->
+          <div class="video-placeholder" id="videoPlaceholder">
+            <div class="play-button">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <p>COMING SOON</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="hero-subtitle">地域に一つ、お薬を通じたつながりの拠点を。<br>動物病院のための、新しいコミュニティネットワーク。</p>
+
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">資料請求（無料）</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      SCROLL
+      <span></span>
+    </div>
+  </section>
+
+  <!-- Partners Section - Featured -->
+  <section class="partners-featured" id="partners">
+    <div class="partners-featured-content">
+      <div class="partners-stats">
+        <div class="stat-item">
+          <div class="stat-number">12<span>+</span></div>
+          <div class="stat-label">提携動物病院</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3<span>エリア</span></div>
+          <div class="stat-label">展開地域</div>
+        </div>
+      </div>
+      <div class="partners-featured-header">
+        <span class="section-label">PARTNERS</span>
+      </div>
+      <div class="partners-logo-grid">
+        <div class="partner-logo-card"><span>Partner Hospital A</span></div>
+        <div class="partner-logo-card"><span>Partner Hospital B</span></div>
+        <div class="partner-logo-card"><span>Partner Hospital C</span></div>
+        <div class="partner-logo-card"><span>Partner Hospital D</span></div>
+        <div class="partner-logo-card"><span>Partner Hospital E</span></div>
+        <div class="partner-logo-card"><span>Partner Hospital F</span></div>
+      </div>
+      <div class="partners-expanding">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        続々と参加病院が増えています
+      </div>
+    </div>
+  </section>
+
+  <!-- Concept Section -->
+  <section class="concept">
+    <div class="concept-content">
+      <div class="concept-image">
+        <svg class="concept-illustration" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Map/Community illustration -->
+          <circle cx="200" cy="150" r="80" fill="#E8936A" opacity="0.1"/>
+          <circle cx="200" cy="150" r="120" stroke="#E8936A" stroke-width="2" stroke-dasharray="8 8" opacity="0.3"/>
+          
+          <!-- Central pharmacy -->
+          <rect x="170" y="120" width="60" height="60" rx="12" fill="#E8936A"/>
+          <text x="200" y="155" text-anchor="middle" fill="white" font-size="12" font-family="Outfit">PHARMACY</text>
+          
+          <!-- Surrounding clinics -->
+          <circle cx="120" cy="100" r="25" fill="#FDF8F3" stroke="#E8936A" stroke-width="2"/>
+          <text x="120" y="104" text-anchor="middle" fill="#E8936A" font-size="8">病院A</text>
+          
+          <circle cx="280" cy="100" r="25" fill="#FDF8F3" stroke="#E8936A" stroke-width="2"/>
+          <text x="280" y="104" text-anchor="middle" fill="#E8936A" font-size="8">病院B</text>
+          
+          <circle cx="120" cy="200" r="25" fill="#FDF8F3" stroke="#E8936A" stroke-width="2"/>
+          <text x="120" y="204" text-anchor="middle" fill="#E8936A" font-size="8">病院C</text>
+          
+          <circle cx="280" cy="200" r="25" fill="#FDF8F3" stroke="#E8936A" stroke-width="2"/>
+          <text x="280" y="204" text-anchor="middle" fill="#E8936A" font-size="8">病院D</text>
+          
+          <!-- Connection lines -->
+          <line x1="145" y1="100" x2="170" y2="130" stroke="#E8936A" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="255" y1="100" x2="230" y2="130" stroke="#E8936A" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="145" y1="200" x2="170" y2="170" stroke="#E8936A" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="255" y1="200" x2="230" y2="170" stroke="#E8936A" stroke-width="2" stroke-dasharray="4 4"/>
+        </svg>
+      </div>
+      <div class="concept-text">
+        <span class="section-label">CONCEPT</span>
+        <h2>地域に一つ、<br><span>つながりの拠点</span>をつくる。</h2>
+        <p>ANIMAL PHARMACYは、地域の動物病院をつなぐ新しいコミュニティネットワークです。</p>
+        <p>単なる調剤サービスではありません。地域に根差した「リアルな拠点」として、お薬を通じた情報共有、緊急時の相互サポート、そして獣医療のコミュニティを形成します。</p>
+        <p>各地域に一つずつ、動物病院と飼い主さんをつなぐ「どうぶつ薬局」を作っていきます。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="features-header">
+      <span class="section-label">FEATURES</span>
+      <h2 class="section-title">ANIMAL PHARMACYの特徴</h2>
+      <p class="section-subtitle">ANIMAL PHARMACYのネットワークに参加することで、日々の業務効率化から緊急時のバックアップまで、さまざまなメリットを享受できます。</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-number">01</div>
+        <h3 class="feature-title">少数ロットでの<br>医薬品発注</h3>
+        <p class="feature-desc">必要な分だけ、必要な時に。在庫リスクを最小限に抑えながら、多様な医薬品へのアクセスを実現します。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-number">02</div>
+        <h3 class="feature-title">調剤業務の<br>外部委託</h3>
+        <p class="feature-desc">手間のかかる調剤作業を専門スタッフに委託。診療に集中できる環境を整えます。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-number">03</div>
+        <h3 class="feature-title">獣医療・医薬品の<br>最新情報共有</h3>
+        <p class="feature-desc">ネットワーク内で情報を共有。新薬情報、症例、ベストプラクティスをタイムリーにキャッチアップ。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-number">04</div>
+        <h3 class="feature-title">緊急時・災害時の<br>相互サポート</h3>
+        <p class="feature-desc">有事の際も安心。ネットワーク内での医薬品融通や情報連携で、地域の獣医療を守ります。</p>
+      </div>
+    </div>
+    <div class="features-expanding-banner">
+      <div class="expanding-icon">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      </div>
+      <p>今後もサービスはどんどん拡充していきます</p>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits">
+    <div class="benefits-header">
+      <span class="section-label">WHY JOIN US</span>
+      <h2 class="section-title">ANIMAL PHARMACYの強み</h2>
+      <p class="section-subtitle">地域に根差したネットワークだからこそ実現できる価値があります。</p>
+    </div>
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="benefit-content">
+          <h3>顔の見える関係性</h3>
+          <p>オンラインだけでは築けない、地域のリアルなつながり。困った時に頼れる仲間がすぐそばにいます。</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="benefit-content">
+          <h3>スケールメリット × 地域最適化</h3>
+          <p>ネットワークのスケールを活かした発注力と、地域特有のニーズに応える柔軟性を両立します。</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <div class="benefit-content">
+          <h3>共に成長するコミュニティ</h3>
+          <p>情報交換、勉強会、交流イベント。孤立しがちな開業獣医師同士が支え合える場を提供します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="how-it-works-header">
+      <span class="section-label">HOW IT WORKS</span>
+      <h2 class="section-title">ご参加までの流れ</h2>
+      <p class="section-subtitle">シンプルなステップで、ANIMAL PHARMACYの仲間に。</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>お問い合わせ・資料請求</h3>
+          <p>まずはお気軽にお問い合わせください。サービス詳細をまとめた資料をお送りします。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>オンライン説明会・個別相談</h3>
+          <p>サービス内容、料金体系、地域でのネットワーク構築について詳しくご説明します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>ご契約・導入準備</h3>
+          <p>契約後、システムの導入と運用開始に向けたサポートを行います。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>サービス開始</h3>
+          <p>地域のANIMAL PHARMACYネットワークの一員として、新しい獣医療の形を一緒に作っていきましょう。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta" id="contact">
+    <div class="cta-content">
+      <h2 class="cta-title">地域に、新しいつながりを。<br>仲間を募集しています。</h2>
+      <p class="cta-subtitle">ANIMAL PHARMACYは、獣医療の未来を一緒に作っていく仲間を探しています。まずは資料をご覧いただき、お気軽にご相談ください。</p>
+      <a href="mailto:contact@animalpharmacy.jp" class="btn btn-primary">資料請求・お問い合わせ</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="logo.png" alt="ANIMAL PHARMACY" class="footer-logo">
+        <p>みんなの、どうぶつ薬局。<br>地域に一つ、お薬を通じたつながりの拠点を。</p>
+      </div>
+      <div class="footer-links">
+        <h4>サービス</h4>
+        <a href="#features">サービス紹介</a>
+        <a href="#benefits">参加メリット</a>
+        <a href="#how-it-works">導入の流れ</a>
+        <a href="#partners">提携病院</a>
+      </div>
+      <div class="footer-links">
+        <h4>会社情報</h4>
+        <a href="#">運営会社</a>
+        <a href="#contact">お問い合わせ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ANIMAL PHARMACY. All rights reserved.</p>
+      <nav>
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth reveal on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.feature-card, .benefit-item, .step, .partner-logo-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
