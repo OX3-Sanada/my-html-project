@@ -117,7 +117,7 @@
       color: var(--white);
     }
 
-    /* Hero Section with Video */
+    /* Hero Section */
     .hero {
       min-height: 100vh;
       background: var(--gradient-hero);
@@ -173,22 +173,18 @@
       opacity: 0;
     }
 
-    .hero-video-wrapper {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto 2.5rem;
-      animation: fadeInUp 0.8s ease 0.4s forwards;
-      opacity: 0;
-    }
-
     .hero-video {
       position: relative;
       width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
       padding-bottom: 56.25%;
       background: rgba(61, 48, 40, 0.1);
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(61, 48, 40, 0.15);
+      animation: fadeInUp 0.8s ease 0.4s forwards;
+      opacity: 0;
     }
 
     .hero-video iframe,
@@ -220,7 +216,7 @@
       background: linear-gradient(135deg, rgba(232, 147, 106, 0.25) 0%, rgba(61, 48, 40, 0.5) 100%);
     }
 
-    .play-button {
+    .play-icon {
       width: 70px;
       height: 70px;
       background: var(--primary);
@@ -231,18 +227,13 @@
       margin-bottom: 1rem;
       transition: all 0.3s ease;
       box-shadow: 0 10px 40px rgba(232, 147, 106, 0.4);
+      font-size: 2rem;
+      color: var(--white);
     }
 
-    .video-placeholder:hover .play-button {
+    .video-placeholder:hover .play-icon {
       transform: scale(1.1);
       box-shadow: 0 15px 50px rgba(232, 147, 106, 0.5);
-    }
-
-    .play-button svg {
-      width: 26px;
-      height: 26px;
-      fill: var(--white);
-      margin-left: 4px;
     }
 
     .video-placeholder p {
@@ -333,7 +324,7 @@
       line-height: 2;
     }
 
-    /* Partners Section - Featured */
+    /* Partners Section */
     .partners-featured {
       background: var(--white);
       text-align: center;
@@ -397,11 +388,6 @@
       margin: 0 auto 3rem;
     }
 
-    .partners-featured-header .section-subtitle {
-      margin: 0 auto;
-      text-align: center;
-    }
-
     .partners-logo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -428,12 +414,6 @@
       border-color: var(--primary-light);
     }
 
-    .partner-logo-card img {
-      max-height: 50px;
-      max-width: 100%;
-      object-fit: contain;
-    }
-
     .partner-logo-card span {
       color: var(--text-light);
       font-size: 0.85rem;
@@ -453,16 +433,9 @@
       font-weight: 500;
     }
 
-    .partners-expanding svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 0.8; }
+    .partners-expanding::before {
+      content: '✓';
+      font-size: 1.5rem;
     }
 
     /* Concept Section */
@@ -499,9 +472,10 @@
         radial-gradient(circle at 70% 30%, rgba(200, 220, 200, 0.2) 0%, transparent 50%);
     }
 
-    .concept-illustration {
-      width: 70%;
-      opacity: 0.9;
+    .concept-image::after {
+      content: '🏥 💊 🐕';
+      font-size: 4rem;
+      opacity: 0.4;
       position: relative;
       z-index: 1;
     }
@@ -545,9 +519,13 @@
       justify-content: center;
       gap: 1rem;
       box-shadow: 0 10px 40px rgba(232, 147, 106, 0.3);
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 500;
     }
 
-    .features-expanding-banner .expanding-icon {
+    .features-expanding-banner::before {
+      content: '+';
       width: 40px;
       height: 40px;
       background: rgba(255, 255, 255, 0.2);
@@ -555,20 +533,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.5rem;
       flex-shrink: 0;
-    }
-
-    .features-expanding-banner .expanding-icon svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--white);
-    }
-
-    .features-expanding-banner p {
-      color: var(--white);
-      font-size: 1.1rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
     }
 
     .features-grid {
@@ -711,12 +677,7 @@
       justify-content: center;
       flex-shrink: 0;
       box-shadow: 0 10px 30px rgba(232, 147, 106, 0.3);
-    }
-
-    .benefit-icon svg {
-      width: 32px;
-      height: 32px;
-      fill: var(--white);
+      font-size: 2rem;
     }
 
     .benefit-content h3 {
@@ -871,14 +832,6 @@
       margin-bottom: 3rem;
     }
 
-    .footer-brand .footer-logo {
-      height: 40px;
-      width: auto;
-      margin-bottom: 1rem;
-      filter: brightness(0) invert(1);
-      opacity: 0.9;
-    }
-
     .footer-brand p {
       color: rgba(255, 255, 255, 0.6);
       font-size: 0.9rem;
@@ -984,10 +937,6 @@
         margin: 0 auto;
       }
 
-      .benefit-content {
-        text-align: center;
-      }
-
       .partners-featured {
         padding: 4rem 5%;
       }
@@ -1007,7 +956,7 @@
   <!-- Header -->
   <header id="header">
     <a href="#" class="logo">
-      <img src="logo.png" alt="ANIMAL PHARMACY" class="logo-icon">
+      <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">ANIMAL PHARMACY</span>
     </a>
     <div class="nav-cta">
       <a href="#contact" class="btn btn-outline">お問い合わせ</a>
@@ -1015,24 +964,20 @@
     </div>
   </header>
 
-  <!-- Hero Section with Embedded Video -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
       <span class="hero-badge">地域獣医療に、新しいつながりを</span>
       <p class="hero-tagline">みんなの、どうぶつ薬局。</p>
       
-      <div class="hero-video-wrapper">
-        <div class="hero-video">
-          <!-- YouTube埋め込み例：以下のコメントを解除してsrcにURLを入れてください -->
-          <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="ANIMAL PHARMACY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-          
-          <!-- プレースホルダー（動画URLが決まったら上のiframeに置き換え） -->
-          <div class="video-placeholder" id="videoPlaceholder">
-            <div class="play-button">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <p>COMING SOON</p>
-          </div>
+      <div class="hero-video">
+        <!-- YouTube埋め込み例：以下のコメントを解除してsrcにURLを入れてください -->
+        <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="ANIMAL PHARMACY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+        
+        <!-- プレースホルダー -->
+        <div class="video-placeholder">
+          <div class="play-icon">▶</div>
+          <p>COMING SOON</p>
         </div>
       </div>
 
@@ -1048,7 +993,7 @@
     </div>
   </section>
 
-  <!-- Partners Section - Featured -->
+  <!-- Partners Section -->
   <section class="partners-featured" id="partners">
     <div class="partners-featured-content">
       <div class="partners-stats">
@@ -1073,7 +1018,6 @@
         <div class="partner-logo-card"><span>Partner Hospital F</span></div>
       </div>
       <div class="partners-expanding">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
         続々と参加病院が増えています
       </div>
     </div>
@@ -1082,36 +1026,7 @@
   <!-- Concept Section -->
   <section class="concept">
     <div class="concept-content">
-      <div class="concept-image">
-        <svg class="concept-illustration" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Map/Community illustration -->
-          <circle cx="200" cy="150" r="80" fill="#E8936A" opacity="0.1"/>
-          <circle cx="200" cy="150" r="120" stroke="#E8936A" stroke-width="2" stroke-dasharray="8 8" opacity="0.3"/>
-          
-          <!-- Central pharmacy -->
-          <rect x="170" y="120" width="60" height="60" rx="12" fill="#E8936A"/>
-          <text x="200" y="155" text-anchor="middle" fill="white" font-size="12" font-family="Outfit">PHARMACY</text>
-          
-          <!-- Surrounding clinics -->
-          <circle cx="120" cy="100" r="25" fill="#FDF8F3" stroke="#E8936A" stroke-width="2"/>
-          <text x="120" y="104" text-anchor="middle" fill="#E8936A" font-size="8">病院A</text>
-          
-          <circle cx="280" cy="100" r="25" fill="#FDF8F3" stroke="#E8936A" stroke-width="2"/>
-          <text x="280" y="104" text-anchor="middle" fill="#E8936A" font-size="8">病院B</text>
-          
-          <circle cx="120" cy="200" r="25" fill="#FDF8F3" stroke="#E8936A" stroke-width="2"/>
-          <text x="120" y="204" text-anchor="middle" fill="#E8936A" font-size="8">病院C</text>
-          
-          <circle cx="280" cy="200" r="25" fill="#FDF8F3" stroke="#E8936A" stroke-width="2"/>
-          <text x="280" y="204" text-anchor="middle" fill="#E8936A" font-size="8">病院D</text>
-          
-          <!-- Connection lines -->
-          <line x1="145" y1="100" x2="170" y2="130" stroke="#E8936A" stroke-width="2" stroke-dasharray="4 4"/>
-          <line x1="255" y1="100" x2="230" y2="130" stroke="#E8936A" stroke-width="2" stroke-dasharray="4 4"/>
-          <line x1="145" y1="200" x2="170" y2="170" stroke="#E8936A" stroke-width="2" stroke-dasharray="4 4"/>
-          <line x1="255" y1="200" x2="230" y2="170" stroke="#E8936A" stroke-width="2" stroke-dasharray="4 4"/>
-        </svg>
-      </div>
+      <div class="concept-image"></div>
       <div class="concept-text">
         <span class="section-label">CONCEPT</span>
         <h2>地域に一つ、<br><span>つながりの拠点</span>をつくる。</h2>
@@ -1152,10 +1067,7 @@
       </div>
     </div>
     <div class="features-expanding-banner">
-      <div class="expanding-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      </div>
-      <p>今後もサービスはどんどん拡充していきます</p>
+      今後もサービスはどんどん拡充していきます
     </div>
   </section>
 
@@ -1168,27 +1080,21 @@
     </div>
     <div class="benefits-list">
       <div class="benefit-item">
-        <div class="benefit-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        </div>
+        <div class="benefit-icon">📍</div>
         <div class="benefit-content">
           <h3>顔の見える関係性</h3>
           <p>オンラインだけでは築けない、地域のリアルなつながり。困った時に頼れる仲間がすぐそばにいます。</p>
         </div>
       </div>
       <div class="benefit-item">
-        <div class="benefit-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </div>
+        <div class="benefit-icon">📊</div>
         <div class="benefit-content">
           <h3>スケールメリット × 地域最適化</h3>
           <p>ネットワークのスケールを活かした発注力と、地域特有のニーズに応える柔軟性を両立します。</p>
         </div>
       </div>
       <div class="benefit-item">
-        <div class="benefit-icon">
-          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-        </div>
+        <div class="benefit-icon">🤝</div>
         <div class="benefit-content">
           <h3>共に成長するコミュニティ</h3>
           <p>情報交換、勉強会、交流イベント。孤立しがちな開業獣医師同士が支え合える場を提供します。</p>
@@ -1249,7 +1155,7 @@
   <footer>
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="logo.png" alt="ANIMAL PHARMACY" class="footer-logo">
+        <p style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">ANIMAL PHARMACY</p>
         <p>みんなの、どうぶつ薬局。<br>地域に一つ、お薬を通じたつながりの拠点を。</p>
       </div>
       <div class="footer-links">
